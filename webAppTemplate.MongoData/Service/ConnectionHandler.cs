@@ -21,7 +21,7 @@ namespace webAppTemplate.MongoData.Service
 
                 var mongoClient = new MongoClient(connectionString);
 
-                var db = mongoClient.GetDatabase("parkSmartly");
+                var db = mongoClient.GetDatabase("webTemplate");
 
                 MongoCollection = db.GetCollection<T>(typeof(T).Name.ToLower() + "s");
             }

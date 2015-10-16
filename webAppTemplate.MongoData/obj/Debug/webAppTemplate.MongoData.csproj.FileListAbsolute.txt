@@ -8,3 +8,13 @@ C:\fray\Projects\WebApiAngularTemplate\webAppTemplate\webAppTemplate.MongoData\b
 C:\fray\Projects\WebApiAngularTemplate\webAppTemplate\webAppTemplate.MongoData\bin\Debug\MongoDB.Driver.xml
 C:\fray\Projects\WebApiAngularTemplate\webAppTemplate\webAppTemplate.MongoData\obj\Debug\webAppTemplate.MongoData.dll
 C:\fray\Projects\WebApiAngularTemplate\webAppTemplate\webAppTemplate.MongoData\obj\Debug\webAppTemplate.MongoData.pdb
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\webAppTemplate.MongoData.dll
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\webAppTemplate.MongoData.pdb
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\MongoDB.Bson.dll
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\MongoDB.Driver.Core.dll
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\MongoDB.Driver.dll
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\MongoDB.Bson.xml
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\bin\Debug\MongoDB.Driver.xml
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\obj\Debug\webAppTemplate.MongoData.csprojResolveAssemblyReference.cache
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\obj\Debug\webAppTemplate.MongoData.dll
+C:\fray\GitProject\WebAPITemplate\webAppTemplate.MongoData\obj\Debug\webAppTemplate.MongoData.pdb
