@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -13,7 +14,7 @@ namespace webAPI.Controllers
 {
     public class CarController : ApiController
     {
-        [EnableCors(origins: "http://localhost:61447", headers: "*", methods: "*")]
+        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
         public async Task<List<Car>> GetAllCars()
         {
             var carRepository = new CarRepository();
@@ -21,12 +22,48 @@ namespace webAPI.Controllers
             return cars;
         }
 
-        [EnableCors(origins: "http://localhost:61447", headers: "*", methods: "*")]
-        public async Task<HttpResponseMessage> Insert(Car car)
+        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> PostInsert(Car car)
         {
             var carRepository = new CarRepository();
             await carRepository.CreateSync(car);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+
+        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [HttpPut]
+        public async Task<HttpResponseMessage> PutUpdate([FromUri]string id, [FromBody]Car car)
+        {
+            var f = "";
+            var carRepository = new CarRepository();
+            try
+            {
+                var result = await carRepository.Update(id, car);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
+
+        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [HttpDelete]
+        public async Task<HttpResponseMessage> DeleteCar([FromUri]string id)
+        {
+            var f = "";
+            var carRepository = new CarRepository();
+            try
+            {
+                var result = await carRepository.Delete(id);
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch (Exception ex)
+            {
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
+            }
+        }
+
     }
 }

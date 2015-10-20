@@ -33,7 +33,9 @@
                             <label for="exampleInputName2">Make</label>
                             <input type="text" class="form-control" id="exampleInputName2" placeholder="Car Manufacturer name">
                         </div>
-                        <button type="submit" class="btn btn-default" id="btnCreate">Create</button>
+                        <button type="button" class="btn btn-default" id="btnCreate">Create</button>
+                        <button type="button" class="btn btn-default" id="btnUpdate">Update</button>
+                        <button type="button" class="btn btn-default" id="btnDelete">Delete</button>
                     </form>
                 </div>
             </div>
@@ -67,7 +69,7 @@
             $("#btnCreate").click(function () {
                 $.ajax({
                     url: 'http://localhost:811/api/car',
-                    data: { Make: "Honda" },
+                    data: { Make: "Audi" },
                     dataType: 'json',
                     method: 'POST',
                     success: function (result) {
@@ -77,6 +79,37 @@
                     }
                 });
             });
+
+            $("#btnUpdate").click(function () {
+                var carId = "5620cb7b9a7c7b19d46f98cc";
+                $.ajax({
+                    url: 'http://localhost:811/api/car/' + carId,
+                    data: JSON.stringify({ Make: "Suzuki" }),
+                    contentType: "application/json; charset=utf-8",
+                    method: 'PUT',
+                    success: function (result) {
+                        var f = "";
+                    },
+                    error: function (xhr, error, errorThrown) {
+                    }
+                });
+            });
+
+            $("#btnDelete").click(function () {
+                var carId = "5620cb7b9a7c7b19d46f98cc";
+                $.ajax({
+                    url: 'http://localhost:811/api/car/' + carId,
+                    //data: JSON.stringify({ Make: "Suzuki" }),
+                    contentType: "application/json; charset=utf-8",
+                    method: 'DELETE',
+                    success: function (result) {
+                        var f = "";
+                    },
+                    error: function (xhr, error, errorThrown) {
+                    }
+                });
+            });
+
         </script>
 
     </body>
