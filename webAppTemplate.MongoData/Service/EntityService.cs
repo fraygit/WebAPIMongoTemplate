@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -12,10 +13,11 @@ namespace webAppTemplate.MongoData.Service
 
         protected EntityService()
         {
-            ConnectionHandler = new ConnectionHandler<T>();
+	        var connectionString = ConfigurationManager.ConnectionStrings["MongoDB"].ConnectionString; // May pass as parameter either
+	        ConnectionHandler = new ConnectionHandler<T>(connectionString);
         }
 
-        public virtual void Create(T entity)
+	    public virtual void Create(T entity)
         {
             var result = ConnectionHandler.MongoCollection.InsertOneAsync(entity);
         }

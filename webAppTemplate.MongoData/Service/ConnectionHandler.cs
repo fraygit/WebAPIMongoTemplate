@@ -9,12 +9,10 @@ namespace webAppTemplate.MongoData.Service
     {
         public IMongoCollection<T> MongoCollection { get; set; }
 
-        public ConnectionHandler()
+        public ConnectionHandler(string connectionString)
         {
             try
             {
-                const string connectionString = "mongodb://localhost:27017";
-
                 var mongoClient = new MongoClient(connectionString);
 
                 var db = mongoClient.GetDatabase("webTemplate");
