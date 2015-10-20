@@ -1,9 +1,6 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 using webAppTemplate.MongoData.Interface;
 using webAppTemplate.MongoData.Model;
 using webAppTemplate.MongoData.Service;
@@ -16,11 +13,10 @@ namespace webAppTemplate.MongoData.Repository
         {
             var builder = Builders<User>.Filter;
             var filter = builder.Eq("Email", username);
-            var users = await this.ConnectionHandler.MongoCollection.Find(filter).ToListAsync();
+            var users = await ConnectionHandler.MongoCollection.Find(filter).ToListAsync();
             if (users.Any())
                 return users.FirstOrDefault();
-            else
-                return null;
+	        return null;
         }
     }
 }

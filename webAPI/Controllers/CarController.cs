@@ -1,7 +1,5 @@
-﻿using MongoDB.Bson;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -14,7 +12,7 @@ namespace webAPI.Controllers
 {
     public class CarController : ApiController
     {
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors("http://localhost:812", "*", "*")]
         public async Task<List<Car>> GetAllCars()
         {
             var carRepository = new CarRepository();
@@ -22,7 +20,7 @@ namespace webAPI.Controllers
             return cars;
         }
 
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors("http://localhost:812", "*", "*")]
         [HttpPost]
         public async Task<HttpResponseMessage> PostInsert(Car car)
         {
@@ -31,7 +29,7 @@ namespace webAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors("http://localhost:812", "*", "*")]
         [HttpPut]
         public async Task<HttpResponseMessage> PutUpdate([FromUri]string id, [FromBody]Car car)
         {
@@ -48,7 +46,7 @@ namespace webAPI.Controllers
             }
         }
 
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors("http://localhost:812", "*", "*")]
         [HttpDelete]
         public async Task<HttpResponseMessage> DeleteCar([FromUri]string id)
         {
