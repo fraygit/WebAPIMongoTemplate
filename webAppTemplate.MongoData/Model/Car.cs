@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using webAppTemplate.MongoData.Entities.Base;
+﻿using webAppTemplate.MongoData.Entities.Base;
 
 namespace webAppTemplate.MongoData.Model
 {

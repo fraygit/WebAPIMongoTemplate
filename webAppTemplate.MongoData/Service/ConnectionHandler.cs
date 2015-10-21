@@ -1,9 +1,5 @@
-﻿using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using MongoDB.Driver;
 using webAppTemplate.MongoData.Entities.Base;
 
 namespace webAppTemplate.MongoData.Service
@@ -13,12 +9,10 @@ namespace webAppTemplate.MongoData.Service
     {
         public IMongoCollection<T> MongoCollection { get; set; }
 
-        public ConnectionHandler()
+        public ConnectionHandler(string connectionString)
         {
             try
             {
-                const string connectionString = "mongodb://localhost:27017";
-
                 var mongoClient = new MongoClient(connectionString);
 
                 var db = mongoClient.GetDatabase("webTemplate");

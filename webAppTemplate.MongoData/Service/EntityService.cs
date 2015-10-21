@@ -1,10 +1,8 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Threading.Tasks;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using webAppTemplate.MongoData.Entities.Base;
 
 namespace webAppTemplate.MongoData.Service
@@ -15,17 +13,18 @@ namespace webAppTemplate.MongoData.Service
 
         protected EntityService()
         {
-            ConnectionHandler = new ConnectionHandler<T>();
+	        var connectionString = ConfigurationManager.ConnectionStrings["MongoDB"].ConnectionString; // May pass as parameter either
+	        ConnectionHandler = new ConnectionHandler<T>(connectionString);
         }
 
-        public virtual void Create(T entity)
+	    public virtual void Create(T entity)
         {
-            var result = this.ConnectionHandler.MongoCollection.InsertOneAsync(entity);
+            var result = ConnectionHandler.MongoCollection.InsertOneAsync(entity);
         }
 
         public virtual async Task<List<T>> ListAll()
         {
-            return await this.ConnectionHandler.MongoCollection.Find(new BsonDocument()).ToListAsync();
+            return await ConnectionHandler.MongoCollection.Find(new BsonDocument()).ToListAsync();
         }
 
         public virtual async Task<ReplaceOneResult> Update(string id, T entity)
@@ -34,7 +33,7 @@ namespace webAppTemplate.MongoData.Service
             var builder = Builders<T>.Filter;
             var filter = builder.Eq("_id", carId);
             entity.Id = carId;
-            var result = await this.ConnectionHandler.MongoCollection.ReplaceOneAsync(filter, entity);
+            var result = await ConnectionHandler.MongoCollection.ReplaceOneAsync(filter, entity);
             return result;
         }
 
@@ -43,13 +42,13 @@ namespace webAppTemplate.MongoData.Service
             var carId = ObjectId.Parse(id);
             var builder = Builders<T>.Filter;
             var filter = builder.Eq("_id", carId);
-            var result = await this.ConnectionHandler.MongoCollection.DeleteManyAsync(filter);
+            var result = await ConnectionHandler.MongoCollection.DeleteManyAsync(filter);
             return result;
         }
 
         public virtual async Task<bool> CreateSync(T entity)
         {
-            await this.ConnectionHandler.MongoCollection.InsertOneAsync(entity);
+            await ConnectionHandler.MongoCollection.InsertOneAsync(entity);
             return true;
         }
 
