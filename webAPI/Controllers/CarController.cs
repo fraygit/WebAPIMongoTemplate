@@ -14,7 +14,7 @@ namespace webAPI.Controllers
 {
     public class CarController : ApiController
     {
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<List<Car>> GetAllCars()
         {
             var carRepository = new CarRepository();
@@ -22,7 +22,7 @@ namespace webAPI.Controllers
             return cars;
         }
 
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpPost]
         public async Task<HttpResponseMessage> PostInsert(Car car)
         {
@@ -31,7 +31,7 @@ namespace webAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpPut]
         public async Task<HttpResponseMessage> PutUpdate([FromUri]string id, [FromBody]Car car)
         {
@@ -48,7 +48,7 @@ namespace webAPI.Controllers
             }
         }
 
-        [EnableCors(origins: "http://localhost:812", headers: "*", methods: "*")]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         [HttpDelete]
         public async Task<HttpResponseMessage> DeleteCar([FromUri]string id)
         {
