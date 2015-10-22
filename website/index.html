@@ -20,6 +20,7 @@
         </style>
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.css" />
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
@@ -27,11 +28,27 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
+                <div class="col-lg-6">
+
+                    <table id="example" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Make</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+
+
+
+                </div>
+                <div class="col-lg-6">
+                    <div class="alert alert-success" role="alert" style="display:none;"></div>
                     <form class="form-inline">
                         <div class="form-group">
                             <label for="exampleInputName2">Make</label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="Car Manufacturer name">
+                            <input type="text" class="form-control" id="txtMake" placeholder="Car Manufacturer name">
                         </div>
                         <button type="button" class="btn btn-default" id="btnCreate">Create</button>
                         <button type="button" class="btn btn-default" id="btnUpdate">Update</button>
@@ -41,41 +58,68 @@
             </div>
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="car-list"></div>
+                    <!--<div class="car-list"></div>-->
                 </div>
             </div>
         </div>
 
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
+        <script type="text/javascript" src="https://cdn.datatables.net/r/dt/dt-1.10.9/datatables.min.js"></script>
+
         <script src="js/vendor/bootstrap.min.js"></script>
 
         <script src="js/main.js"></script>
 
+
+
         <script type="text/javascript">
 
-            $.ajax({
-                url: 'http://localhost:811/api/car',
-                data: { },
-                dataType: 'json',
-                method: 'GET',
-                success: function (result) {
-                    $(".car-list").html(JSON.stringify(result));
-                },
-                error: function (xhr, error, errorThrown) {
-                }
+            $(document).ready(function () {
+                LoadDataTable();
             });
+
+            var example;
+
+            function LoadDataTable() {
+                example = $('#example').DataTable({
+                    "ajax": {
+                        "url": "http://52.89.138.135:811/api/car",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        { "data": "Id" },
+                        { "data": "Make" }
+                    ]
+                });
+            }
+
+            //$.ajax({
+            //    url: 'http://localhost:811/api/car',
+            //    data: { },
+            //    dataType: 'json',
+            //    method: 'GET',
+            //    success: function (result) {
+            //        $(".car-list").html(JSON.stringify(result));
+            //    },
+            //    error: function (xhr, error, errorThrown) {
+            //    }
+            //});
 
             $("#btnCreate").click(function () {
                 $.ajax({
-                    url: 'http://localhost:811/api/car',
-                    data: { Make: "Audi" },
+                    url: 'http://52.89.138.135:811/api/car',
+                    data: { Make: $("#txtMake").val() },
                     dataType: 'json',
                     method: 'POST',
                     success: function (result) {
-                        var f = "";
+
                     },
                     error: function (xhr, error, errorThrown) {
+                        example.ajax.reload();
+                        $(".alert").html("added");
+                        $("#txtMake").val("");
+                        $(".alert").slideDown("slow");
                     }
                 });
             });
