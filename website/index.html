@@ -44,21 +44,29 @@
 
                 </div>
                 <div class="col-lg-6">
-                    <div class="alert alert-success" role="alert" style="display:none;"></div>
+                    <div class="alert alert-success" id="alertCreate" role="alert" style="display:none;"></div>
                     <form class="form-inline">
+                        <h3>Create new</h3>
                         <div class="form-group">
                             <label for="exampleInputName2">Make</label>
                             <input type="text" class="form-control" id="txtMake" placeholder="Car Manufacturer name">
                         </div>
                         <button type="button" class="btn btn-default" id="btnCreate">Create</button>
-                        <button type="button" class="btn btn-default" id="btnUpdate">Update</button>
-                        <button type="button" class="btn btn-default" id="btnDelete">Delete</button>
                     </form>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4">
-                    <!--<div class="car-list"></div>-->
+                <div class="col-lg-6">
+                    <div class="alert alert-success" id="alertUpdate" role="alert" style="display:none;"></div>
+                    <form class="form-inline">
+                        <h3>Edit</h3>
+                        <div class="form-group" id="frmEdit" data-car-id="">
+                            <label for="exampleInputName2">Make</label>
+                            <input type="text" class="form-control" id="txtEditMake" placeholder="Car Manufacturer name">
+                        </div>
+                        <button type="button" class="btn btn-default" id="btnUpdate">Update</button>
+                        <button type="button" class="btn btn-default" id="btnDelete">Delete</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -77,6 +85,22 @@
 
             $(document).ready(function () {
                 LoadDataTable();
+
+                $('#example tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    }
+                    else {
+                        var id = $($(this).find("td")[0]).html();
+                        var make = $($(this).find("td")[1]).html();
+
+                        $("#frmEdit").data("car-id", id);
+                        $("#txtEditMake").val(make);
+
+                        example.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                });
             });
 
             var example;
@@ -107,6 +131,7 @@
             //});
 
             $("#btnCreate").click(function () {
+                $("#alertCreate").slideUp("slow");
                 $.ajax({
                     url: 'http://52.89.138.135:811/api/car',
                     data: { Make: $("#txtMake").val() },
@@ -117,37 +142,46 @@
                     },
                     error: function (xhr, error, errorThrown) {
                         example.ajax.reload();
-                        $(".alert").html("added");
+                        $("#alertCreate").html("added");
                         $("#txtMake").val("");
-                        $(".alert").slideDown("slow");
+                        $("#alertCreate").slideDown("slow");
                     }
                 });
             });
 
             $("#btnUpdate").click(function () {
-                var carId = "5620cb7b9a7c7b19d46f98cc";
+                var carId = $("#frmEdit").data("car-id");
+                $("#alertUpdate").slideUp("slow");
                 $.ajax({
-                    url: 'http://localhost:811/api/car/' + carId,
-                    data: JSON.stringify({ Make: "Suzuki" }),
+                    url: 'http://52.89.138.135:811/api/car/' + carId,
+                    data: JSON.stringify({ Make: $("#txtEditMake").val() }),
                     contentType: "application/json; charset=utf-8",
                     method: 'PUT',
                     success: function (result) {
-                        var f = "";
+                        $("#alertUpdate").html("Successfully updated item.");
+                        $("#txtEditMake").val("");
+                        $("#alertUpdate").slideDown("slow");
+                        example.ajax.reload();
                     },
                     error: function (xhr, error, errorThrown) {
+                        example.ajax.reload();
                     }
                 });
             });
 
             $("#btnDelete").click(function () {
-                var carId = "5620cb7b9a7c7b19d46f98cc";
+                var carId = $("#frmEdit").data("car-id");
+                $("#alertUpdate").slideUp("slow");
                 $.ajax({
-                    url: 'http://localhost:811/api/car/' + carId,
+                    url: 'http://52.89.138.135:811/api/car/' + carId,
                     //data: JSON.stringify({ Make: "Suzuki" }),
                     contentType: "application/json; charset=utf-8",
                     method: 'DELETE',
                     success: function (result) {
-                        var f = "";
+                        $("#alertUpdate").html("Successfully deleted item.");
+                        $("#txtEditMake").val("");
+                        $("#alertUpdate").slideDown("slow");
+                        example.ajax.reload();
                     },
                     error: function (xhr, error, errorThrown) {
                     }
