@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using MongoDB.Driver;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using webAppTemplate.MongoData.Entities.Base;
 
@@ -8,5 +9,8 @@ namespace webAppTemplate.MongoData.Service
     {
         void Create(T entity);
         Task<List<T>> ListAll();
+        Task<bool> CreateSync(T entity);
+        Task<DeleteResult> Delete(string id);
+        Task<ReplaceOneResult> Update(string id, T entity);
     }
 }

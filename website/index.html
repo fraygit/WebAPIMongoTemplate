@@ -108,7 +108,7 @@
             function LoadDataTable() {
                 example = $('#example').DataTable({
                     "ajax": {
-                        "url": "http://52.89.138.135:811/api/car",
+                        "url": "http://localhost:811/api/car",
                         "dataSrc": ""
                     },
                     "columns": [
@@ -133,7 +133,7 @@
             $("#btnCreate").click(function () {
                 $("#alertCreate").slideUp("slow");
                 $.ajax({
-                    url: 'http://52.89.138.135:811/api/car',
+                    url: 'http://localhost:811/api/car',
                     data: { Make: $("#txtMake").val() },
                     dataType: 'json',
                     method: 'POST',
@@ -153,7 +153,7 @@
                 var carId = $("#frmEdit").data("car-id");
                 $("#alertUpdate").slideUp("slow");
                 $.ajax({
-                    url: 'http://52.89.138.135:811/api/car/' + carId,
+                    url: 'http://localhost:811/api/car/' + carId,
                     data: JSON.stringify({ Make: $("#txtEditMake").val() }),
                     contentType: "application/json; charset=utf-8",
                     method: 'PUT',
@@ -173,7 +173,7 @@
                 var carId = $("#frmEdit").data("car-id");
                 $("#alertUpdate").slideUp("slow");
                 $.ajax({
-                    url: 'http://52.89.138.135:811/api/car/' + carId,
+                    url: 'http://localhost:811/api/car/' + carId,
                     //data: JSON.stringify({ Make: "Suzuki" }),
                     contentType: "application/json; charset=utf-8",
                     method: 'DELETE',

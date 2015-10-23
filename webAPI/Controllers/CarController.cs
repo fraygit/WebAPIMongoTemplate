@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using webAppTemplate.MongoData.Interface;
 using webAppTemplate.MongoData.Model;
 using webAppTemplate.MongoData.Repository;
 
@@ -14,11 +15,17 @@ namespace webAPI.Controllers
 {
     public class CarController : ApiController
     {
+        private readonly ICarRepository repository;
+
+        public CarController(ICarRepository repository)
+        {
+            this.repository = repository;
+        }
+
         [EnableCors(origins: "*", headers: "*", methods: "*")]
         public async Task<List<Car>> GetAllCars()
         {
-            var carRepository = new CarRepository();
-            var cars = await carRepository.ListAll();
+            var cars = await repository.ListAll();
             return cars;
         }
 
@@ -26,8 +33,7 @@ namespace webAPI.Controllers
         [HttpPost]
         public async Task<HttpResponseMessage> PostInsert(Car car)
         {
-            var carRepository = new CarRepository();
-            await carRepository.CreateSync(car);
+            await repository.CreateSync(car);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
@@ -35,11 +41,9 @@ namespace webAPI.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> PutUpdate([FromUri]string id, [FromBody]Car car)
         {
-            var f = "";
-            var carRepository = new CarRepository();
             try
             {
-                var result = await carRepository.Update(id, car);
+                var result = await repository.Update(id, car);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -52,11 +56,9 @@ namespace webAPI.Controllers
         [HttpDelete]
         public async Task<HttpResponseMessage> DeleteCar([FromUri]string id)
         {
-            var f = "";
-            var carRepository = new CarRepository();
             try
             {
-                var result = await carRepository.Delete(id);
+                var result = await repository.Delete(id);
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (Exception ex)
