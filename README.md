@@ -67,7 +67,9 @@ container.Register<YourNewRepositoryInterface, YourNewRepository>(Lifestyle.Scop
 
 ### Todo's
 
-Still a lot!!!!! Too many to list down for now!
+1. Authorization and Token
+2. YeoMan
+3. Angular/React sample website 
 
 
 License
