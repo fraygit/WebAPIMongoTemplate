@@ -14,7 +14,7 @@ The project is broken down into 3 projects
 ### Data Layer
 
 To Create a new data model:
-1. Create a data model class under webAppTemplate.MongoData > Model
+1. Create a data model class under webAppTemplate.MongoData > Model which inherit MongoEntity
 e.g.
 ```csharp
 using webAppTemplate.MongoData.Entities.Base;
@@ -27,10 +27,43 @@ namespace webAppTemplate.MongoData.Model
     }
 }
 ```
+2. Create a repository interface under webAppTemplate.MongoData > Interface which inherits IEntityService<YourNewModel>
 
-2. 
+```csharp
+using webAppTemplate.MongoData.Model;
+using webAppTemplate.MongoData.Service;
+
+namespace webAppTemplate.MongoData.Interface
+{
+    public interface ICarRepository : IEntityService<Car>
+    {
+    }
+}
+```
 
 
+3. Create a repository class under webAppTemplate.MongoData > Repository which inherits EntityService<YourNewModel> and YourNewRepositoryInterface
+
+```csharp 
+using webAppTemplate.MongoData.Interface;
+using webAppTemplate.MongoData.Model;
+using webAppTemplate.MongoData.Service;
+
+namespace webAppTemplate.MongoData.Repository
+{
+    public class CarRepository : EntityService<Car>, ICarRepository
+    {
+    }
+}
+```
+
+### Web API
+
+web api uses simple injector. If you have a new repository, register the class in Webapi > Global.asax.cs add the code:
+
+```csharp
+container.Register<YourNewRepositoryInterface, YourNewRepository>(Lifestyle.Scoped);
+```
 
 ### Todo's
 
