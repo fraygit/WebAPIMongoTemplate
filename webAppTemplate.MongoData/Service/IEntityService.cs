@@ -12,5 +12,6 @@ namespace webAppTemplate.MongoData.Service
         Task<bool> CreateSync(T entity);
         Task<DeleteResult> Delete(string id);
         Task<ReplaceOneResult> Update(string id, T entity);
+        Task<T> Get(string id);
     }
 }

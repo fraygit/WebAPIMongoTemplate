@@ -15,6 +15,10 @@ namespace webAPI
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
 
             container.Register<ICarRepository, CarRepository>(Lifestyle.Scoped);
+			container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+            container.Register<IUserTokenRepository, UserTokenRepository>(Lifestyle.Scoped);
+            container.Register<IAdminUserRepository, AdminUserRepository>(Lifestyle.Scoped);
+            container.Register<IAdminUserTokenRepository, AdminUserTokenRepository>(Lifestyle.Scoped);
 
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 

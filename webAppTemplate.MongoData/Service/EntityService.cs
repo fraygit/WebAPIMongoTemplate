@@ -27,6 +27,13 @@ namespace webAppTemplate.MongoData.Service
             return await ConnectionHandler.MongoCollection.Find(new BsonDocument()).ToListAsync();
         }
 
+        public virtual async Task<T> Get(string id)
+        {
+            var filter = Builders<T>.Filter.Eq("_id", ObjectId.Parse(id));
+            return await ConnectionHandler.MongoCollection.Find(filter).FirstOrDefaultAsync();
+        }
+
+
         public virtual async Task<ReplaceOneResult> Update(string id, T entity)
         {
             var carId = ObjectId.Parse(id);

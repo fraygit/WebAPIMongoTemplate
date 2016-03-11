@@ -1,6 +1,7 @@
 ﻿using System;
 using MongoDB.Driver;
 using webAppTemplate.MongoData.Entities.Base;
+using System.Configuration;
 
 namespace webAppTemplate.MongoData.Service
 {
@@ -15,7 +16,8 @@ namespace webAppTemplate.MongoData.Service
             {
                 var mongoClient = new MongoClient(connectionString);
 
-                var db = mongoClient.GetDatabase("webTemplate");
+                var defaultDb = ConfigurationManager.AppSettings["Database"];
+                var db = mongoClient.GetDatabase(defaultDb);
 
                 MongoCollection = db.GetCollection<T>(typeof(T).Name.ToLower() + "s");
             }
